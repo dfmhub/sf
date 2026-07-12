@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Script Forge - User Guide</title>
+    <title>Script Forge - Comprehensive User Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Kufi+Arabic:wght@300;400;600;700&display=swap');
         
         body { 
             font-family: 'Inter', sans-serif; 
@@ -20,10 +20,7 @@
         }
         
         /* Language Toggle Logic */
-        .lang-en, .lang-ma, .lang-ar, .lang-fr { 
-            display: none; 
-        }
-        
+        .lang-en, .lang-ma, .lang-ar, .lang-fr { display: none; }
         body[data-lang="en"] .lang-en { display: block; }
         body[data-lang="ma"] .lang-ma { display: block; }
         body[data-lang="ar"] .lang-ar { display: block; }
@@ -34,306 +31,572 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+        
         .screenshot-placeholder {
             background-color: #1e293b;
             background-image: repeating-linear-gradient(45deg, #0f172a 25%, transparent 25%, transparent 75%, #0f172a 75%, #0f172a), repeating-linear-gradient(45deg, #0f172a 25%, #1e293b 25%, #1e293b 75%, #0f172a 75%, #0f172a);
             background-position: 0 0, 10px 10px;
             background-size: 20px 20px;
             border: 2px dashed #3b82f6;
+            transition: all 0.3s ease;
         }
+        .screenshot-placeholder:hover { border-color: #60a5fa; background-color: #243447; }
 
-        /* Adjust margins for RTL lists */
-        [dir="rtl"] ul, [dir="rtl"] ol {
-            padding-left: 0;
-            padding-right: 1.5rem;
+        [dir="rtl"] ul, [dir="rtl"] ol { padding-left: 0; padding-right: 1.5rem; }
+        
+        /* Custom UI Badges */
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.25rem; padding: 0.125rem 0.5rem;
+            border-radius: 0.375rem; font-size: 0.75rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0.25rem;
         }
+        .badge-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-purple { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+        .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-red { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-slate { background: rgba(100, 116, 139, 0.2); color: #94a3b8; border: 1px solid rgba(100, 116, 139, 0.3); }
     </style>
 </head>
-<body class="min-h-screen" data-lang="en">
+<body class="min-h-screen selection:bg-blue-500/30" data-lang="en">
 
     <!-- Header -->
     <header class="glass-panel sticky top-0 z-50 px-6 py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-md border-b border-slate-700">
         <div class="flex items-center gap-3">
             <i data-lucide="book-open" class="text-blue-400 w-6 h-6"></i>
-            <h1 class="text-xl font-bold tracking-wider text-white">SCRIPT FORGE <span class="text-xs text-blue-400 font-normal">GUIDE</span></h1>
+            <h1 class="text-xl font-bold tracking-wider text-white">SCRIPT FORGE <span class="text-xs text-blue-400 font-normal border border-blue-400/30 px-2 py-1 rounded ml-2">MASTER GUIDE</span></h1>
         </div>
         
         <!-- Language Switcher -->
         <div class="flex flex-wrap items-center gap-2 bg-slate-900 p-1.5 rounded-xl md:rounded-full border border-slate-700 shadow-inner">
-            <button data-target="en" class="lang-btn bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold transition-colors">English</button>
+            <button data-target="en" class="lang-btn bg-blue-600 text-white px-4 py-1.5 rounded-full text-xs font-bold transition-colors shadow">English</button>
             <button data-target="ma" class="lang-btn text-slate-400 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition-colors">Darija (🇲🇦)</button>
             <button data-target="ar" class="lang-btn text-slate-400 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition-colors">العربية</button>
             <button data-target="fr" class="lang-btn text-slate-400 hover:text-white px-4 py-1.5 rounded-full text-xs font-bold transition-colors">Français</button>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-6 py-12 space-y-16">
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
         
         <!-- INTRO -->
         <section class="text-center space-y-4">
             <!-- EN -->
-            <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 lang-en">Welcome to Script Forge</h2>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto lang-en">The ultimate all-in-one AI studio for YouTube automation. From scriptwriting to B-Roll rendering and SEO packaging, everything happens here.</p>
-            
+            <div class="lang-en">
+                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">Master Script Forge</h2>
+                <p class="text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">Script Forge is an elite, all-in-one AI studio designed specifically for YouTube automation. This comprehensive guide covers every button, setting, and feature to take you from a raw idea to a fully rendered video.</p>
+            </div>
             <!-- MA -->
-            <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 lang-ma" dir="rtl">مرحبا بيك ف Script Forge!</h2>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto lang-ma" dir="rtl">الأداة اللخرة لي غتحتاج ف YouTube automation. من كتابة السكريبت، المونطاج ديال B-Roll (تصاور وفيديوات)، تال SEO. كلشي كيدار هنا.</p>
-
+            <div class="lang-ma" dir="rtl">
+                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">احترف Script Forge</h2>
+                <p class="text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">ستوديو شامل بالذكاء الاصطناعي مقاد خصيصا للـ YouTube Automation. هاد الدليل كيشرح كل بطونة، كل إعداد، وكل ميزة باش تبدا من فكرة وتخرج فيديو ناضي ممنتج ومقاد للرفع.</p>
+            </div>
             <!-- AR -->
-            <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 lang-ar" dir="rtl">مرحباً بكم في Script Forge!</h2>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto lang-ar" dir="rtl">الاستوديو الشامل والمدعوم بالذكاء الاصطناعي لأتمتة يوتيوب. من كتابة السيناريو إلى إنتاج الـ B-Roll وتجهيز الـ SEO، كل شيء يحدث هنا.</p>
-
+            <div class="lang-ar" dir="rtl">
+                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">الدليل الشامل لـ Script Forge</h2>
+                <p class="text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">يعد Script Forge استوديو شامل مدعوم بالذكاء الاصطناعي لأتمتة قنوات يوتيوب. يغطي هذا الدليل كل زر وإعداد وميزة ليأخذك من الفكرة الأولية إلى فيديو كامل الإنتاج جاهز للنشر.</p>
+            </div>
             <!-- FR -->
-            <h2 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 lang-fr">Bienvenue sur Script Forge</h2>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto lang-fr">Le studio IA tout-en-un ultime pour l'automatisation YouTube. De l'écriture du script au rendu B-Roll et au packaging SEO, tout se passe ici.</p>
+            <div class="lang-fr">
+                <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-6">Maîtriser Script Forge</h2>
+                <p class="text-slate-400 text-lg max-w-3xl mx-auto leading-relaxed">Script Forge est un studio IA tout-en-un conçu pour l'automatisation YouTube. Ce guide complet couvre chaque bouton, paramètre et fonctionnalité pour passer d'une idée brute à une vidéo entièrement rendue.</p>
+            </div>
         </section>
 
-        <!-- SETUP: API KEYS -->
-        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 shadow-xl">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="p-3 bg-purple-900/30 text-purple-400 rounded-lg"><i data-lucide="key" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold lang-en">Step 0: API Keys & Setup</h3>
-                <h3 class="text-2xl font-bold lang-ma" dir="rtl">الخطوة 0: الإعدادات وليكلي API</h3>
-                <h3 class="text-2xl font-bold lang-ar" dir="rtl">الخطوة 0: إعداد مفاتيح API</h3>
-                <h3 class="text-2xl font-bold lang-fr">Étape 0 : Clés API et Configuration</h3>
+        <!-- STEP 0: API KEYS & SETUP -->
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="bg-slate-800 border-b border-slate-700 px-8 py-6 flex items-center gap-4 relative z-10">
+                <div class="p-3 bg-amber-900/30 text-amber-400 rounded-lg shadow-inner"><i data-lucide="cpu" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white lang-en">Step 0: Engines & API Setup</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ma" dir="rtl">الخطوة 0: الإعدادات وليكلي API</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ar" dir="rtl">الخطوة 0: المحركات ومفاتيح API</h3>
+                    <h3 class="text-2xl font-bold text-white lang-fr">Étape 0 : Moteurs et Clés API</h3>
+                </div>
             </div>
             
-            <div class="space-y-4 text-slate-300 leading-relaxed">
+            <div class="p-8 space-y-8 relative z-10">
                 <!-- EN -->
-                <div class="lang-en">
-                    <p>Before you start, the tool needs a "Brain". We use Google's Gemini AI. It's currently free in Google AI Studio!</p>
-                    <ul class="list-disc pl-6 space-y-2 mt-4">
-                        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-400 underline">Google AI Studio</a> and get an API Key.</li>
-                        <li>Click the <strong>Settings (Gear)</strong> or <strong>CPU</strong> icon in the top right of Script Forge.</li>
-                        <li>Paste your key into both the <strong>Text Generation</strong> and <strong>Image Generation</strong> boxes.</li>
-                    </ul>
+                <div class="lang-en space-y-6">
+                    <p class="text-slate-300">Script Forge needs an AI "Brain" (Google Gemini) to generate text and images. You have two options:</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-lg border border-emerald-500/30 relative">
+                            <span class="absolute -top-3 left-4 badge badge-emerald shadow-lg">1. Free Canvas Mode (Default)</span>
+                            <p class="text-sm text-slate-300 mt-2">If you are using Script Forge directly inside this interactive Canvas, <strong>you do NOT need an API key!</strong> The environment injects a free API key securely behind the scenes. You can immediately start using the tool without touching any settings.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-lg border border-purple-500/30 relative">
+                            <span class="absolute -top-3 left-4 badge badge-purple shadow-lg">2. Your Own API Keys (Pro)</span>
+                            <p class="text-sm text-slate-300 mt-2">If you want to use advanced models (like Gemini 1.5 Pro) or bypass the Canvas rate limits for massive bulk-generations, click the <span class="badge badge-slate"><i data-lucide="cpu" class="w-3 h-3"></i> AI Engines</span> button in the top right header to paste your own free keys from Google AI Studio.</p>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Paste Screenshot: API Settings Modal showing Key Inputs and Model Selectors ]
+                    </div>
+
+                    <div class="bg-slate-800/80 p-5 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-white mb-2"><i data-lucide="sliders" class="inline w-4 h-4 text-orange-400 mr-2"></i> Advanced Fine-Tuning</h4>
+                        <p class="text-sm text-slate-300 mb-3">Inside the settings menu (<span class="badge badge-slate"><i data-lucide="settings" class="w-3 h-3"></i> App Settings</span>), you can configure the engine logic:</p>
+                        <ul class="list-disc pl-6 space-y-2 text-sm text-slate-400">
+                            <li><strong>Cooldown Delays:</strong> Adjust the milliseconds the app waits between generation chunks to avoid "HTTP 429 Too Many Requests" errors.</li>
+                            <li><strong>RAM Threshold:</strong> The timeline generator handles massive videos by chunking them into separate ZIP files to prevent your browser from crashing.</li>
+                            <li><strong>System Prompts:</strong> You can literally rewrite the underlying AI behavior for every single button in the app.</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- MA -->
-                <div class="lang-ma" dir="rtl">
-                    <p>قبل ما تبدا، الأداة خاصها "دماغ". كنستعملو الذكاء الاصطناعي ديال Google Gemini (راه فابور دابا ف Google AI Studio!).</p>
-                    <ul class="list-disc space-y-2 mt-4">
-                        <li>سير لـ <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-400 underline">Google AI Studio</a> وخذ API Key ديالك.</li>
-                        <li>كليكي على أيقونة <strong>الإعدادات (البينيو)</strong> ولا <strong>CPU</strong> الفوق على ليمن ف Script Forge.</li>
-                        <li>دير كولي (Paste) للكود ديالك فالبلايص بجوج: <strong>Text Generation</strong> و <strong>Image Generation</strong>.</li>
-                    </ul>
+                <div class="lang-ma space-y-6" dir="rtl">
+                    <p class="text-slate-300">Script Forge كيخصو دماغ ديال الذكاء الاصطناعي (Google Gemini). عندك جوج ديال الطرق:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-lg border border-emerald-500/30 relative">
+                            <span class="absolute -top-3 right-4 badge badge-emerald shadow-lg">1. الوضع الفابور (ديال الكانفا)</span>
+                            <p class="text-sm text-slate-300 mt-2">يلا كنتي خدام بـ Script Forge ديريكت فـ Canvas، <strong>مغتحتاجش API Key!</strong> كاين كود فابور مدمج لداخل، تقدر تبدا الخدمة ديك الساعة بلا ما تقيس الإعدادات.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-lg border border-purple-500/30 relative">
+                            <span class="absolute -top-3 right-4 badge badge-purple shadow-lg">2. دير ليكلي ديالك (احترافي)</span>
+                            <p class="text-sm text-slate-300 mt-2">يلا بغيتي تخدم بموديلات واعرين (بحال Gemini Pro) ولا تخرج بزاف د الفيديوهات ومابغيتيش المتصفح يحبسك، كليكي على <span class="badge badge-slate"><i data-lucide="cpu" class="w-3 h-3"></i> AI Engines</span> الفوق باش تزيد الكود ديالك لي غاتجيبو من Google AI Studio فابور.</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ حط تصويرة ديال نافذة الإعدادات د API هنا ]
+                    </div>
                 </div>
 
                 <!-- AR -->
-                <div class="lang-ar" dir="rtl">
-                    <p>قبل البدء، تحتاج الأداة إلى "عقل". نحن نستخدم Google Gemini AI. وهو مجاني حالياً في Google AI Studio!</p>
-                    <ul class="list-disc space-y-2 mt-4">
-                        <li>انتقل إلى <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-400 underline">Google AI Studio</a> واحصل على مفتاح API.</li>
-                        <li>انقر على أيقونة <strong>الإعدادات (الترس)</strong> أو <strong>CPU</strong> في أعلى يمين Script Forge.</li>
-                        <li>قم بلصق المفتاح في مربعي <strong>Text Generation</strong> و <strong>Image Generation</strong>.</li>
-                    </ul>
+                <div class="lang-ar space-y-6" dir="rtl">
+                    <p class="text-slate-300">يحتاج Script Forge إلى عقل ذكاء اصطناعي (Google Gemini) لإنشاء النصوص والصور. لديك خياران:</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-lg border border-emerald-500/30 relative">
+                            <span class="absolute -top-3 right-4 badge badge-emerald shadow-lg">1. الوضع المجاني المدمج (الافتراضي)</span>
+                            <p class="text-sm text-slate-300 mt-2">إذا كنت تستخدم الأداة داخل هذه الـ Canvas، <strong>فأنت لا تحتاج إلى مفتاح API!</strong> يتم دمج مفتاح مجاني في الخلفية. يمكنك البدء في استخدام الأداة فورًا.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-lg border border-purple-500/30 relative">
+                            <span class="absolute -top-3 right-4 badge badge-purple shadow-lg">2. مفاتيح API الخاصة بك (للمحترفين)</span>
+                            <p class="text-sm text-slate-300 mt-2">إذا كنت تريد استخدام نماذج متقدمة (مثل Gemini Pro) أو لتجنب حدود الاستخدام، انقر فوق <span class="badge badge-slate"><i data-lucide="cpu" class="w-3 h-3"></i> AI Engines</span> في الزاوية العلوية للصق مفاتيحك الخاصة من Google AI Studio.</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ ضع صورة نافذة إعدادات API هنا ]
+                    </div>
                 </div>
 
                 <!-- FR -->
-                <div class="lang-fr">
-                    <p>Avant de commencer, l'outil a besoin d'un "Cerveau". Nous utilisons l'IA Google Gemini. C'est actuellement gratuit sur Google AI Studio !</p>
-                    <ul class="list-disc pl-6 space-y-2 mt-4">
-                        <li>Allez sur <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-blue-400 underline">Google AI Studio</a> et obtenez une clé API.</li>
-                        <li>Cliquez sur l'icône des <strong>Paramètres (Engrenage)</strong> ou <strong>CPU</strong> en haut à droite de Script Forge.</li>
-                        <li>Collez votre clé dans les champs <strong>Text Generation</strong> et <strong>Image Generation</strong>.</li>
-                    </ul>
+                <div class="lang-fr space-y-6">
+                    <p class="text-slate-300">Script Forge a besoin d'un cerveau IA (Google Gemini). Deux options s'offrent à vous :</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-lg border border-emerald-500/30 relative">
+                            <span class="absolute -top-3 left-4 badge badge-emerald shadow-lg">1. Mode Canvas Gratuit</span>
+                            <p class="text-sm text-slate-300 mt-2">Si vous utilisez cet outil directement dans le Canvas, <strong>vous n'avez pas besoin de clé API !</strong> Une clé gratuite est intégrée de manière sécurisée en arrière-plan.</p>
+                        </div>
+                        <div class="bg-slate-900 p-6 rounded-lg border border-purple-500/30 relative">
+                            <span class="absolute -top-3 left-4 badge badge-purple shadow-lg">2. Vos propres clés API (Pro)</span>
+                            <p class="text-sm text-slate-300 mt-2">Pour utiliser des modèles avancés ou éviter les limites de quota lors de générations massives, cliquez sur <span class="badge badge-slate"><i data-lucide="cpu" class="w-3 h-3"></i> AI Engines</span> en haut à droite pour ajouter vos propres clés.</p>
+                        </div>
+                    </div>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Coller la capture d'écran de la configuration API ici ]
+                    </div>
                 </div>
 
-                <div class="screenshot-placeholder w-full h-64 mt-6 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
-                    [ Paste a screenshot of the API Settings Modal here ]
-                </div>
             </div>
         </section>
 
         <!-- VIEW 1: SCRIPT WRITER -->
-        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 shadow-xl">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="p-3 bg-blue-900/30 text-blue-400 rounded-lg"><i data-lucide="pen-tool" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold lang-en">View 1: Script Writer</h3>
-                <h3 class="text-2xl font-bold lang-ma" dir="rtl">الواجهة 1: كتابة السكريبت</h3>
-                <h3 class="text-2xl font-bold lang-ar" dir="rtl">الواجهة 1: كاتب السيناريو</h3>
-                <h3 class="text-2xl font-bold lang-fr">Vue 1 : Rédacteur de Script</h3>
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="bg-slate-800 border-b border-slate-700 px-8 py-6 flex items-center gap-4 relative z-10">
+                <div class="p-3 bg-blue-900/30 text-blue-400 rounded-lg shadow-inner"><i data-lucide="pen-tool" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white lang-en">View 1: The Script Writer</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ma" dir="rtl">الواجهة 1: كاتب السكريبت</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ar" dir="rtl">الواجهة 1: كاتب السيناريو</h3>
+                    <h3 class="text-2xl font-bold text-white lang-fr">Vue 1 : Le Rédacteur de Script</h3>
+                </div>
             </div>
             
-            <div class="space-y-4 text-slate-300 leading-relaxed">
+            <div class="p-8 space-y-8 relative z-10">
                 <!-- EN -->
-                <div class="lang-en">
-                    <p>This is where your raw ideas turn into a structured YouTube script mapped for CapCut.</p>
-                    <ol class="list-decimal pl-6 space-y-3 mt-4">
-                        <li><strong>Formula & Format:</strong> Paste your channel's "Formula" (tone, rules) and select a "Format" (like Faceless Storyboard or Documentary).</li>
-                        <li><strong>Source Material:</strong> Paste your raw notes, an article, or a transcript.</li>
-                        <li><strong>Deep Research (Optional):</strong> Turn this on, and the AI will search Google in real-time to fact-check and expand your notes.</li>
-                        <li><strong>Generate:</strong> The AI will write the script, breaking it into small visual blocks.</li>
-                    </ol>
+                <div class="lang-en space-y-8 text-slate-300 text-sm">
+                    <p class="text-base">This is the heart of the storytelling engine. It converts raw ideas, articles, or transcripts into a highly structured, perfectly paced YouTube script.</p>
+
+                    <!-- Row 1 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-2 border-b border-slate-700 pb-2"><i data-lucide="database" class="w-4 h-4"></i> 1. Channel Formula & Profile</h4>
+                            <p class="mb-3">Paste your "Channel DNA" here (e.g., Tone, Perspective, Humor). The AI uses this to mimic your voice perfectly.</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>The Shield <i data-lucide="shield" class="inline w-3 h-3 text-blue-400"></i> :</strong> Click the shield icon in the corner to inject "Halal / Safe Narrative" constraints, forcing the AI to avoid certain themes.</li>
+                                <li><strong>Formula Mode:</strong> Choose <em>Strict</em> to force the AI to use exact quotes from your formula, or <em>Dynamic</em> to invent brand new phrasing.</li>
+                                <li><strong>Auto-Generator <i data-lucide="sparkles" class="inline w-3 h-3 text-amber-400"></i> :</strong> Leave the Channel Name blank and click the sparkles to have the AI generate 10 premium names based on your formula!</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-2 border-b border-slate-700 pb-2"><i data-lucide="layout-template" class="w-4 h-4"></i> 2. Script Format</h4>
+                            <p class="mb-3">This dictates the <em>physical structure</em> of the text (e.g., short CapCut storyboard blocks vs. long paragraphs).</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Magic Formatter <i data-lucide="sparkles" class="inline w-3 h-3 text-amber-400"></i> :</strong> Type a vague idea (e.g., "Podcast with 2 hosts") and click the sparkles to let AI write the strict rules.</li>
+                                <li><strong>Pacing Extractor <i data-lucide="images" class="inline w-3 h-3 text-blue-400"></i> :</strong> Upload sequential screenshots of a competitor's video. The AI will analyze the math between the timestamps and write a format that perfectly clones their scene pacing!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-placeholder w-full h-[400px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Paste Screenshot: View 1 Left Panel showing Formula, Profile, Format, and Transcript boxes ]
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-2 border-b border-slate-700 pb-2"><i data-lucide="file-text" class="w-4 h-4"></i> 3. Source Material</h4>
+                            <p class="mb-3">Paste your raw notes, Wikipedia articles, or rough drafts here. This is the AI's factual source of truth.</p>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Topic Extractor <i data-lucide="sparkles" class="inline w-3 h-3 text-blue-400"></i> :</strong> Distills massive text blocks into a single core topic.</li>
+                                <li><strong>Length Estimator <i data-lucide="clock" class="inline w-3 h-3 text-emerald-400"></i> :</strong> Analyzes your text and auto-adjusts the timeline slider to the mathematically optimal video length to maximize viewer retention without adding fluff.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-blue-400 mb-2 flex items-center gap-2 border-b border-slate-700 pb-2"><i data-lucide="zap" class="w-4 h-4"></i> 4. Engines & Generation</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Web Research <i data-lucide="globe" class="inline w-3 h-3 text-blue-400"></i> :</strong> Toggle this on. The AI will pause, browse Google, fact-check your notes, and append live internet data before writing!</li>
+                                <li><strong>Standard Engine:</strong> Use for fast, short scripts (< 10 mins).</li>
+                                <li><strong>Deep Dive (Turbo/Seq):</strong> Use for massive scripts (10 - 60 mins). The AI acts as an Architect, breaking the script into distinct sequential chapters and generating them one by one to prevent memory loss and repetition.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 rounded-lg border border-slate-700">
+                        <h4 class="font-bold text-purple-400 mb-3 flex items-center gap-2"><i data-lucide="wrench" class="w-5 h-5"></i> 5. The Output & Post-Processing</h4>
+                        <div class="screenshot-placeholder w-full h-[250px] mb-4 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                            [ Paste Screenshot: Generated Script blocks highlighting the top toolbar ]
+                        </div>
+                        <ul class="list-disc pl-5 space-y-3 text-sm">
+                            <li><strong>AI Polish <span class="badge badge-purple"><i data-lucide="spell-check" class="w-3 h-3"></i></span> :</strong> Click this to run the entire script through an AI Editor. It highlights grammatical fixes in <span class="text-purple-300 border-b border-dashed border-purple-500">purple</span>. You can click the sparkles next to any paragraph to revert the edit.</li>
+                            <li><strong>Number Translator <span class="badge badge-amber"><i data-lucide="mic" class="w-3 h-3"></i></span> :</strong> Converts digits (e.g., "$1.5M") into spoken words ("one point five million dollars") for flawless teleprompter reading.</li>
+                            <li><strong>Regen Chapters <span class="badge badge-red"><i data-lucide="refresh-cw" class="w-3 h-3"></i></span> :</strong> If a specific chapter fails due to API limits, you can surgically regenerate just that block without losing the rest of the script.</li>
+                            <li><strong>Fact Sheet & Blueprint:</strong> View the live data scraped from Google, or copy the exact underlying prompt chains.</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <!-- MA -->
-                <div class="lang-ma" dir="rtl">
-                    <p>هنا فين الأفكار الخام ديالك كتحول لسكريبت مقاد مزيان، ومقسم لـ CapCut.</p>
-                    <ol class="list-decimal space-y-3 mt-4">
-                        <li><strong>الفورميلا والفورما:</strong> حط الفورميلا ديال القناة ديالك (الأسلوب، القواعد) وعزل الفورما (بحال Faceless ولا وثائقي).</li>
-                        <li><strong>المصادر:</strong> حط المعلومات، مقال، ولا سكريبت خام ديالك هنا.</li>
-                        <li><strong>بحث معمق (اختياري):</strong> يلا شعلتيها، الذكاء الاصطناعي غيقلب فـ Google مباشرة باش يتأكد من المعلومات ويزيد عليها.</li>
-                        <li><strong>توليد (Generate):</strong> كليكي عليها والذكاء الاصطناعي غيكتب ليك السكريبت، وغيقسمو لطريفات صغار على حساب التصاور.</li>
-                    </ol>
+                <!-- MA (Summarized but comprehensive) -->
+                <div class="lang-ma space-y-6" dir="rtl">
+                    <p class="text-slate-300">هاد الواجهة كتاخد الأفكار ديالك وكتحولها لسكريبت احترافي مقاد للمونطاج:</p>
+                    <ul class="list-disc space-y-4 text-sm text-slate-300">
+                        <li><strong>Channel Formula:</strong> حط هنا الأسلوب ديالك. كليكي على الدرع <i data-lucide="shield" class="inline w-3 h-3"></i> باش الـ AI يتجنب المواضيع الممنوعة. وتقدر تكليكي على النجمات <i data-lucide="sparkles" class="inline w-3 h-3 text-amber-400"></i> باش يقترح ليك سميات للقناة.</li>
+                        <li><strong>Script Format:</strong> كيعزل الطريقة د الكتابة. تقدر تلوح تصاور د فيديو منافس <i data-lucide="images" class="inline w-3 h-3 text-blue-400"></i> والـ AI غيحسب الوقت بين التصاور باش ينقل الريتم (Pacing) ديالو!</li>
+                        <li><strong>Source Material:</strong> حط المعلومات الخام. كليكي على المكانا <i data-lucide="clock" class="inline w-3 h-3 text-emerald-400"></i> باش الـ AI يعطيك شحال خاص يكون فالفيديو باش ميجيهش الملل.</li>
+                        <li><strong>Web Research:</strong> يلا شعلتيها، الـ AI غيدخل لجوجل يتأكد من المعلومات ويزيد عليها قبل ما يكتب.</li>
+                        <li><strong>Deep Dive Engine:</strong> يلا كان الفيديو طويل، هاد المحرك كيقسمو لفقرات (Chapters) وكيكتب كل وحدة بوحدها باش مايعاودش الهضرة.</li>
+                        <li><strong>AI Polish <span class="badge badge-purple"><i data-lucide="spell-check" class="w-3 h-3"></i></span>:</strong> ملي يخرج السكريبت، كليكي عليها باش الـ AI يصحح الأخطاء اللغوية لراسو.</li>
+                        <li><strong>ترجمة الأرقام <span class="badge badge-amber"><i data-lucide="mic" class="w-3 h-3"></i></span>:</strong> كترد الأرقام (1.5M) لحروف (One point five million) باش تقراهم فـ Teleprompter مرتاح.</li>
+                    </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ حط تصويرة ديال واجهة السكريبت هنا ]
+                    </div>
                 </div>
 
                 <!-- AR -->
-                <div class="lang-ar" dir="rtl">
-                    <p>هنا تتحول أفكارك الأولية إلى سيناريو يوتيوب منظم وجاهز لـ CapCut.</p>
-                    <ol class="list-decimal space-y-3 mt-4">
-                        <li><strong>الصيغة والتنسيق:</strong> ضع "صيغة" قناتك (الأسلوب، القواعد) وحدد "التنسيق" (مثل قصة بدون وجه أو وثائقي).</li>
-                        <li><strong>المادة المصدرية:</strong> الصق ملاحظاتك الأولية، أو مقالاً، أو نصاً.</li>
-                        <li><strong>بحث معمق (اختياري):</strong> قم بتشغيله، وسيبحث الذكاء الاصطناعي في Google في الوقت الفعلي للتحقق من الحقائق وتوسيع ملاحظاتك.</li>
-                        <li><strong>توليد (Generate):</strong> سيكتب الذكاء الاصطناعي السيناريو، ويقسمه إلى كتل بصرية صغيرة.</li>
-                    </ol>
+                <div class="lang-ar space-y-6" dir="rtl">
+                    <p class="text-slate-300">يأخذ هذا المحرك أفكارك الأولية ويحولها إلى سيناريو يوتيوب منظم بدقة:</p>
+                    <ul class="list-disc space-y-4 text-sm text-slate-300">
+                        <li><strong>صيغة القناة (Formula):</strong> ضع أسلوبك هنا. انقر على الدرع <i data-lucide="shield" class="inline w-3 h-3"></i> لفرض قيود المحتوى الآمن. واستخدم أيقونة <i data-lucide="sparkles" class="inline w-3 h-3 text-amber-400"></i> لتوليد أسماء قنوات.</li>
+                        <li><strong>تنسيق السيناريو (Format):</strong> يمكنك رفع لقطات شاشة لفيديو منافس <i data-lucide="images" class="inline w-3 h-3 text-blue-400"></i> وسيقوم الذكاء الاصطناعي بنسخ إيقاع التقطيع الخاص بهم!</li>
+                        <li><strong>المصادر والوقت <i data-lucide="clock" class="inline w-3 h-3 text-emerald-400"></i>:</strong> سيحلل الذكاء الاصطناعي معلوماتك لتقدير الطول المثالي للفيديو لزيادة الاحتفاظ بالجمهور.</li>
+                        <li><strong>البحث المعمق (Web Research):</strong> سيقوم الذكاء الاصطناعي بالبحث في جوجل في الوقت الفعلي للتحقق من الحقائق قبل الكتابة.</li>
+                        <li><strong>التدقيق الذكي <span class="badge badge-purple"><i data-lucide="spell-check" class="w-3 h-3"></i> Polish</span>:</strong> يصلح الأخطاء النحوية والتدفق بضغطة زر.</li>
+                        <li><strong>قارئ الأرقام <span class="badge badge-amber"><i data-lucide="mic" class="w-3 h-3"></i></span>:</strong> يحول الأرقام إلى نصوص مكتوبة لتسهيل القراءة الصريحة.</li>
+                    </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ ضع صورة لواجهة كاتب السيناريو هنا ]
+                    </div>
                 </div>
 
                 <!-- FR -->
-                <div class="lang-fr">
-                    <p>C'est ici que vos idées brutes se transforment en un script YouTube structuré, prêt pour CapCut.</p>
-                    <ol class="list-decimal pl-6 space-y-3 mt-4">
-                        <li><strong>Formule & Format :</strong> Collez la "Formule" de votre chaîne (ton, règles) et sélectionnez un "Format" (comme Faceless ou Documentaire).</li>
-                        <li><strong>Matériel Source :</strong> Collez vos notes brutes, un article ou une transcription.</li>
-                        <li><strong>Recherche Approfondie (Optionnel) :</strong> Activez ceci, et l'IA fera des recherches Google en temps réel pour vérifier et développer vos notes.</li>
-                        <li><strong>Générer :</strong> L'IA écrira le script en le divisant en petits blocs visuels.</li>
-                    </ol>
+                <div class="lang-fr space-y-6">
+                    <p class="text-slate-300">Ce moteur convertit vos idées brutes en un script YouTube parfaitement structuré :</p>
+                    <ul class="list-disc space-y-4 text-sm text-slate-300">
+                        <li><strong>Formule de Chaîne :</strong> Collez votre style. Cliquez sur le Bouclier <i data-lucide="shield" class="inline w-3 h-3"></i> pour des contraintes sûres. Utilisez les étincelles <i data-lucide="sparkles" class="inline w-3 h-3 text-amber-400"></i> pour générer des noms de chaîne.</li>
+                        <li><strong>Format du Script :</strong> Uploadez des captures d'un concurrent <i data-lucide="images" class="inline w-3 h-3 text-blue-400"></i> et l'IA clonera leur rythme de coupe !</li>
+                        <li><strong>Recherche Web :</strong> L'IA cherchera sur Google en temps réel pour vérifier les faits avant d'écrire.</li>
+                        <li><strong>Moteur Deep Dive :</strong> Pour les longues vidéos, l'IA écrit chapitre par chapitre pour éviter les répétitions.</li>
+                        <li><strong>Polissage IA <span class="badge badge-purple"><i data-lucide="spell-check" class="w-3 h-3"></i> Polish</span> :</strong> Corrige instantanément la grammaire et la fluidité de tout le script.</li>
+                        <li><strong>Traducteur de Nombres <span class="badge badge-amber"><i data-lucide="mic" class="w-3 h-3"></i></span> :</strong> Convertit les chiffres (1.5M) en mots pour une lecture fluide au prompteur.</li>
+                    </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Coller la capture d'écran de l'écriture du script ici ]
+                    </div>
                 </div>
 
-                <div class="screenshot-placeholder w-full h-72 mt-6 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
-                    [ Paste a screenshot of View 1 / Script highlighting here ]
-                </div>
             </div>
         </section>
 
         <!-- VIEW 2: B-ROLL DIRECTOR -->
-        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 shadow-xl">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="p-3 bg-emerald-900/30 text-emerald-400 rounded-lg"><i data-lucide="clapperboard" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold lang-en">View 2: B-Roll Director</h3>
-                <h3 class="text-2xl font-bold lang-ma" dir="rtl">الواجهة 2: إخراج الـ B-Roll (تصاور وفيديوات)</h3>
-                <h3 class="text-2xl font-bold lang-ar" dir="rtl">الواجهة 2: مخرج الـ B-Roll</h3>
-                <h3 class="text-2xl font-bold lang-fr">Vue 2 : Réalisateur B-Roll</h3>
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="bg-slate-800 border-b border-slate-700 px-8 py-6 flex items-center gap-4 relative z-10">
+                <div class="p-3 bg-emerald-900/30 text-emerald-400 rounded-lg shadow-inner"><i data-lucide="clapperboard" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white lang-en">View 2: The B-Roll Timeline & Renderer</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ma" dir="rtl">الواجهة 2: إخراج وإنتاج المونطاج</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ar" dir="rtl">الواجهة 2: مخرج المقاطع وإنتاج الفيديو</h3>
+                    <h3 class="text-2xl font-bold text-white lang-fr">Vue 2 : La Timeline B-Roll et le Rendu</h3>
+                </div>
             </div>
             
-            <div class="space-y-4 text-slate-300 leading-relaxed">
+            <div class="p-8 space-y-12 relative z-10">
                 <!-- EN -->
-                <div class="lang-en">
-                    <p>Convert your text script into a full timeline of Images and Videos. You can even render the final video here!</p>
-                    <ul class="list-disc pl-6 space-y-3 mt-4">
-                        <li><strong>Pro Sync (SRT):</strong> Upload an audio transcript (.srt) to perfectly sync the visual cuts to the millisecond of the voiceover.</li>
-                        <li><strong>Director Mode & Art Style:</strong> Tell the AI how to direct (e.g., fast cuts, slow documentary) and what art style to draw (e.g., 90s Anime, Photorealistic).</li>
-                        <li><strong>Bulk Render:</strong> Once the prompts are generated, click "Start Bulk Render" to let the AI draw every single frame for you.</li>
-                        <li><strong>Animations & Export:</strong> Add Ken Burns effects (Pan/Zoom) to the images, turn them into MP4s, or download the ZIP files!</li>
-                    </ul>
+                <div class="lang-en space-y-10 text-slate-300 text-sm">
+                    <p class="text-base text-slate-300">Click <span class="badge badge-emerald">Send to B-Roll Director</span> from View 1. This engine reads your text and maps out the visual representation of every single sentence.</p>
+
+                    <!-- SECTION A: SETUP -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-4">A. Setup & Pacing</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-slate-900 p-5 rounded-lg border border-slate-700">
+                                <h5 class="font-bold text-emerald-400 mb-2 flex items-center gap-2"><i data-lucide="subtitles" class="w-4 h-4"></i> Pro Sync (SRT)</h5>
+                                <p class="mb-3">Drag and drop your voiceover's <code>.srt</code> subtitle file here. The engine will perfectly align the visual cuts to the exact millisecond the word is spoken.</p>
+                                <p class="text-xs text-slate-400"><strong>Gap Handling:</strong> Decide how the engine treats silence (e.g., Hold the previous image, or split the silence halfway).</p>
+                            </div>
+                            <div class="bg-slate-900 p-5 rounded-lg border border-slate-700">
+                                <h5 class="font-bold text-emerald-400 mb-2 flex items-center gap-2"><i data-lucide="video" class="w-4 h-4"></i> Director Mode & Art Style</h5>
+                                <p class="mb-3">Select the directorial style (e.g., Fast TikTok vs Slow Cinematic). Select the Art Style (e.g., 90s VHS, Photorealistic).</p>
+                                <p class="text-xs text-slate-400"><strong>Extraction <i data-lucide="camera" class="inline w-3 h-3 text-blue-400"></i> :</strong> Upload a reference image, and the AI will extract its exact visual aesthetic so every generated clip matches it!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-placeholder w-full h-[200px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Paste Screenshot: SRT Dropzone and Director Mode setup ]
+                    </div>
+
+                    <!-- SECTION B: TIMELINE & BULK -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-4">B. The Visual Timeline & Bulk Generation</h4>
+                        <p class="mb-4">Click <span class="badge badge-emerald"><i data-lucide="film"></i> Generate Timeline</span>. The AI will output an ordered list of Image/Video prompts mapped to your audio. Check the <strong>Global Reference Lockers</strong>: if the script mentions a specific character ("Elon Musk"), upload their photo here once, and it applies to all matching scenes!</p>
+                        
+                        <div class="bg-slate-800 p-5 rounded-lg border border-slate-600 shadow-xl mb-4">
+                            <h5 class="font-bold text-white mb-3">The Action Toolbar</h5>
+                            <ul class="list-disc pl-5 space-y-3">
+                                <li><strong>Start Bulk Render:</strong> Tell the Image AI (Nano Banana) to draw every single image on the timeline automatically.</li>
+                                <li><strong>Bulk Upload:</strong> Have your own files? Name them <code>1.jpg</code>, <code>2.mp4</code>, and upload them here. They will snap automatically into the correct blocks!</li>
+                                <li><strong>Bulk Edit:</strong> Use the checkboxes to select multiple cards. You can instantly apply Pan/Zoom motions or Animation modes to hundreds of cards at once.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="screenshot-placeholder w-full h-[400px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Paste Screenshot: The full timeline with generated images ]
+                    </div>
+
+                    <!-- SECTION C: INLINE EDITING & VIDEO -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white border-b border-slate-700 pb-2 mb-4">C. Inline Magic Editor & MP4 Rendering</h4>
+                        <p class="mb-4">Hover over any generated image on the timeline to reveal the Inline Editor tools:</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-slate-900 p-4 rounded border border-purple-500/30">
+                                <span class="badge badge-purple mb-2 w-full justify-center"><i data-lucide="wand-2" class="w-3 h-3"></i> AI Edit</span>
+                                <p class="text-xs">Type an instruction (e.g., "Make it rain") to instantly modify the existing image using AI Image-to-Image.</p>
+                            </div>
+                            <div class="bg-slate-900 p-4 rounded border border-pink-500/30">
+                                <span class="badge badge-red mb-2 w-full justify-center"><i data-lucide="play-circle" class="w-3 h-3"></i> Frame Animate</span>
+                                <p class="text-xs">Turns a static image into a moving flipbook sequence (Morph or Stop-Motion) based on a text prompt.</p>
+                            </div>
+                            <div class="bg-slate-900 p-4 rounded border border-emerald-500/30">
+                                <span class="badge badge-emerald mb-2 w-full justify-center"><i data-lucide="crop" class="w-3 h-3"></i> Crop & Trim</span>
+                                <p class="text-xs">Adjust the framing of an image, or set the exact start-time offset for an uploaded video file.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-900/20 border border-blue-500/50 p-5 rounded-lg flex flex-col items-center text-center">
+                            <h5 class="text-xl font-bold text-blue-400 mb-2 flex items-center gap-2"><i data-lucide="film" class="w-5 h-5"></i> Final Render (MP4)</h5>
+                            <p class="mb-4">Select all your cards, set your camera motions (Pan/Zoom) and transitions (Crossfade, Slide), and click the Render button in the top toolbar.</p>
+                            <span class="badge badge-blue text-sm px-4 py-2">Script Forge will stitch the entire timeline into a perfectly timed MP4 file!</span>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- MA -->
-                <div class="lang-ma" dir="rtl">
-                    <p>هنا السكريبت ديالك كيتحول لـ Timeline عامرة بالتصاور والفيديوات. تقدر ݣاع تخرج الفيديو النهائي من هنا!</p>
-                    <ul class="list-disc space-y-3 mt-4">
-                        <li><strong>المزامنة الاحترافية (Pro Sync - SRT):</strong> لوح ملف .srt ديال الصوت باش المشاهد يتقطعو بالتدقيق مع الهضرة (بالميلي ثانية).</li>
-                        <li><strong>وضع الإخراج والأسلوب الفني:</strong> كول للذكاء الاصطناعي كيفاش يدير الإخراج (زرب، ولا خليه وثائقي) وأشمن ستيل يرسم بيه (أنمي، واقعي.. إلخ).</li>
-                        <li><strong>رندر دفعة وحدة (Bulk Render):</strong> ملي يتقادو الأوامر (Prompts)، كليكي "Start Bulk Render" باش الذكاء الاصطناعي يبدا يرسم ليك ݣاع التصاور دقة وحدة.</li>
-                        <li><strong>التحريك والتصدير:</strong> دير الحركة فالتصاور (Zoom/Pan)، ردهوم MP4، ولا تيليشارجي كلشي فملف ZIP!</li>
+                <!-- MA (Summarized) -->
+                <div class="lang-ma space-y-6 text-sm text-slate-300" dir="rtl">
+                    <p>هاد الواجهة كتحول السكريبت ديالك لمونطاج كامل بصريا. كدير كولشي من التصاور تال الإخراج النهائي.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>Pro Sync (SRT):</strong> لوح ملف الترجمة ديال الصوت. الأداة غتحدد الوقت بالثانية ديال كل مشهد.</li>
+                        <li><strong>Director Mode & Art Style:</strong> عزل واش بغيتي تقطيع سريع ولا سينمائي، وعزل الستيل (أنمي، واقعي). تقدر تلوح تصويرة <i data-lucide="camera" class="inline w-3 h-3 text-blue-400"></i> والـ AI غينقل الستيل ديالها.</li>
+                        <li><strong>خزائن المراجع (Lockers):</strong> يلا السكريبت كيهضر على شي شخصية، لوح تصويرتها هنا مرة وحدة، والأداة غتستعملها فكاع اللقطات لي غتبان فيهم باش تبقى ديما بحال بحال.</li>
+                        <li><strong>Bulk Render & Upload:</strong> كليكي باش الـ AI يرسم كاع التصاور، ولا لوح تصاورك/فيديوهاتك مسميين (1.jpg, 2.mp4) وغيدخلو فبلاصتهم أوتوماتيك!</li>
+                        <li><strong>المحرر الداخلي:</strong> دوز لا سوري فوق أي تصويرة وغيبانو ليك أدوات: <span class="badge badge-purple">Edit</span> باش تبدلها بالـ AI، <span class="badge badge-emerald">Crop</span> باش تقطعها، و <span class="badge badge-red">Animate</span> باش تردها كتحرك.</li>
+                        <li><strong>إخراج الفيديو (Render MP4):</strong> زيد حركات الكاميرا وانتقالات، وكليكي رندر باش تخرج فيديو MP4 واجد!</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ حط تصويرة ديال واجهة الـ Timeline هنا ]
+                    </div>
                 </div>
 
                 <!-- AR -->
-                <div class="lang-ar" dir="rtl">
-                    <p>حوّل نص السيناريو إلى جدول زمني كامل من الصور ومقاطع الفيديو. يمكنك حتى إنتاج الفيديو النهائي هنا!</p>
-                    <ul class="list-disc space-y-3 mt-4">
-                        <li><strong>مزامنة احترافية (Pro Sync - SRT):</strong> قم برفع ملف ترجمة (.srt) لمزامنة المقاطع المرئية تماماً مع التعليق الصوتي إلى أجزاء من الثانية.</li>
-                        <li><strong>وضع المخرج والأسلوب الفني:</strong> أخبر الذكاء الاصطناعي بكيفية الإخراج (مثلاً، تقطيع سريع، وثائقي بطيء) والأسلوب الفني للرسم (مثلاً، أنمي التسعينات، واقعي).</li>
-                        <li><strong>إنتاج شامل (Bulk Render):</strong> بمجرد إنشاء المطالبات (Prompts)، انقر على "Start Bulk Render" للسماح للذكاء الاصطناعي برسم كل إطار لك.</li>
-                        <li><strong>الرسوم المتحركة والتصدير:</strong> أضف تأثيرات (Pan/Zoom) إلى الصور، وحولها إلى ملفات MP4، أو قم بتنزيل ملفات ZIP!</li>
+                <div class="lang-ar space-y-6 text-sm text-slate-300" dir="rtl">
+                    <p>تحول هذه الواجهة النص إلى مونتاج مرئي كامل. إنها تقوم بكل شيء من توليد الصور إلى الإخراج النهائي.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>مزامنة SRT:</strong> أسقط ملف الترجمة الصوتية. ستقوم الأداة بمزامنة أوقات المشاهد بدقة أجزاء الثانية.</li>
+                        <li><strong>وضع المخرج والأسلوب:</strong> حدد سرعة التقطيع والأسلوب الفني. يمكنك رفع صورة <i data-lucide="camera" class="inline w-3 h-3 text-blue-400"></i> لنسخ أسلوبها!</li>
+                        <li><strong>خزائن المراجع (Lockers):</strong> للحفاظ على تناسق الشخصيات، ارفع صورة للشخصية المعينة مرة واحدة، وسيتم استخدامها كمرجع في جميع المشاهد.</li>
+                        <li><strong>الإنتاج والرفع الشامل:</strong> انقر ليقوم الذكاء الاصطناعي برسم جميع الصور، أو ارفع ملفاتك المسماة بالترتيب (1.jpg) لتأخذ مكانها تلقائيًا!</li>
+                        <li><strong>المحرر الداخلي:</strong> مرر الماوس فوق أي صورة لأدوات التعديل: <span class="badge badge-purple">Edit</span> للتعديل بالذكاء الاصطناعي، <span class="badge badge-emerald">Crop</span> للقص، و <span class="badge badge-red">Animate</span> لتحريك الصورة.</li>
+                        <li><strong>تصدير الفيديو (MP4):</strong> أضف حركات الكاميرا والانتقالات، وانقر Render لتصدير فيديو MP4 جاهز!</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ ضع صورة لواجهة الجدول الزمني هنا ]
+                    </div>
                 </div>
 
                 <!-- FR -->
-                <div class="lang-fr">
-                    <p>Convertissez votre script texte en une timeline complète d'images et de vidéos. Vous pouvez même faire le rendu de la vidéo finale ici !</p>
-                    <ul class="list-disc pl-6 space-y-3 mt-4">
-                        <li><strong>Synchro Pro (SRT) :</strong> Importez une transcription audio (.srt) pour synchroniser parfaitement les coupures visuelles à la milliseconde de la voix off.</li>
-                        <li><strong>Mode Réalisateur & Style Artistique :</strong> Dites à l'IA comment réaliser (ex: coupes rapides, documentaire lent) et quel style dessiner (ex: Anime 90s, Photoréaliste).</li>
-                        <li><strong>Rendu en Masse :</strong> Une fois les prompts générés, cliquez sur "Start Bulk Render" pour laisser l'IA dessiner chaque image pour vous.</li>
-                        <li><strong>Animations & Export :</strong> Ajoutez des effets Ken Burns (Pan/Zoom) aux images, transformez-les en MP4, ou téléchargez les fichiers ZIP !</li>
+                <div class="lang-fr space-y-6 text-sm text-slate-300">
+                    <p>Cette vue transforme votre script en un montage visuel complet. De la génération d'images au rendu final.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>Synchro SRT :</strong> Déposez votre fichier de sous-titres audio. L'outil synchronisera les scènes à la milliseconde près.</li>
+                        <li><strong>Mode Réalisateur & Style :</strong> Choisissez le rythme (rapide/cinématographique) et le style. Uploadez une image <i data-lucide="camera" class="inline w-3 h-3 text-blue-400"></i> pour que l'IA clone son style !</li>
+                        <li><strong>Casiers de Référence (Lockers) :</strong> Pour la cohérence des personnages, uploadez leur photo une fois, elle s'appliquera à toutes leurs scènes !</li>
+                        <li><strong>Rendu & Upload en Masse :</strong> Laissez l'IA dessiner toutes les images, ou uploadez vos propres fichiers renommés (1.jpg, 2.mp4) qui se placeront automatiquement !</li>
+                        <li><strong>Éditeur Intégré :</strong> Survolez une image pour : <span class="badge badge-purple">Edit</span> (modifier via IA), <span class="badge badge-emerald">Crop</span> (recadrer), ou <span class="badge badge-red">Animate</span> (animer l'image).</li>
+                        <li><strong>Rendu MP4 :</strong> Ajoutez des mouvements de caméra et des transitions, puis exportez la vidéo MP4 finale !</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[300px] rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Coller la capture d'écran de la Timeline ici ]
+                    </div>
                 </div>
 
-                <div class="screenshot-placeholder w-full h-80 mt-6 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
-                    [ Paste a screenshot of the timeline with generated images here ]
-                </div>
             </div>
         </section>
 
         <!-- VIEW 3: SEO PACKAGER -->
-        <section class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 shadow-xl">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="p-3 bg-purple-900/30 text-purple-400 rounded-lg"><i data-lucide="package" class="w-6 h-6"></i></div>
-                <h3 class="text-2xl font-bold lang-en">View 3: SEO Packager</h3>
-                <h3 class="text-2xl font-bold lang-ma" dir="rtl">الواجهة 3: SEO والتبييض</h3>
-                <h3 class="text-2xl font-bold lang-ar" dir="rtl">الواجهة 3: تجهيز الـ SEO</h3>
-                <h3 class="text-2xl font-bold lang-fr">Vue 3 : Packaging SEO</h3>
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="bg-slate-800 border-b border-slate-700 px-8 py-6 flex items-center gap-4 relative z-10">
+                <div class="p-3 bg-purple-900/30 text-purple-400 rounded-lg shadow-inner"><i data-lucide="package" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white lang-en">View 3: The SEO Packager</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ma" dir="rtl">الواجهة 3: تجهيز الـ SEO والتبييض</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ar" dir="rtl">الواجهة 3: حزمة الـ SEO</h3>
+                    <h3 class="text-2xl font-bold text-white lang-fr">Vue 3 : Le Packaging SEO</h3>
+                </div>
             </div>
             
-            <div class="space-y-4 text-slate-300 leading-relaxed">
+            <div class="p-8 space-y-6 relative z-10 text-slate-300 text-sm md:text-base">
+                
                 <!-- EN -->
-                <div class="lang-en">
-                    <p>Don't publish without good SEO! This view analyzes your script to generate viral YouTube packaging.</p>
-                    <ul class="list-disc pl-6 space-y-3 mt-4">
-                        <li><strong>Titles & Hooks:</strong> Generates highly clickable titles and short text you can put on your thumbnails.</li>
-                        <li><strong>Analyze Button:</strong> Click the "Analyze" chart icon to have the AI rate your titles out of 100 based on CTR psychology.</li>
-                        <li><strong>Description & Tags:</strong> Clones competitor description formats and generates perfect backend tags.</li>
-                        <li><strong>Thumbnail Prompts:</strong> Upload competitor thumbnails! The AI will steal their "layout" but swap the subjects to match your specific video!</li>
-                    </ul>
+                <div class="lang-en space-y-6">
+                    <p>The YouTube algorithm requires perfect packaging. This view automates the psychology behind viral metadata.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        <div class="bg-slate-900 p-5 rounded-lg border border-purple-500/30">
+                            <h4 class="font-bold text-purple-400 mb-2 flex items-center gap-2"><i data-lucide="dna" class="w-4 h-4"></i> Competitor Cloning (Inject)</h4>
+                            <p class="text-sm">Click the DNA Inject icon next to any section (Titles, Description, Tags). Paste a highly successful competitor's text. The AI will extract their exact structural and psychological formatting, but rewrite it populated <em>exclusively</em> with facts from your script.</p>
+                        </div>
+                        <div class="bg-slate-900 p-5 rounded-lg border border-purple-500/30">
+                            <h4 class="font-bold text-purple-400 mb-2 flex items-center gap-2"><i data-lucide="bar-chart" class="w-4 h-4"></i> AI Strategic Analyzer</h4>
+                            <p class="text-sm">Click the Analyze icon on the Titles or Thumbnail Hooks panel. An AI YouTube Growth Strategist will rate all generated options out of 100 based on CTR potential and curiosity gaps, telling you exactly which one to pick.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-5 rounded-lg border border-slate-600 shadow-xl mt-6">
+                        <h4 class="font-bold text-emerald-400 mb-3 flex items-center gap-2"><i data-lucide="image" class="w-4 h-4"></i> Reverse-Engineering Thumbnails</h4>
+                        <p class="text-sm mb-3">In the left panel, upload up to 3 thumbnails from competitors that went viral. The Vision AI will perform a "Compositional Skeleton Transfer":</p>
+                        <ul class="list-disc pl-6 space-y-2 text-sm text-slate-400">
+                            <li>It analyzes the layout, lighting, and dynamic elements of the competitor's thumbnail.</li>
+                            <li>It swaps out the competitor's subjects and replaces them with the specific subjects from your script.</li>
+                            <li>It outputs a highly detailed prompt you can immediately render to get a structurally identical, but topically relevant thumbnail!</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <!-- MA -->
-                <div class="lang-ma" dir="rtl">
-                    <p>متلوحش الفيديو بلا SEO واعر! هاد البلاصة كتحلل السكريبت ديالك باش تعطيك SEO متوقع لـ YouTube.</p>
-                    <ul class="list-disc space-y-3 mt-4">
-                        <li><strong>العناوين والخطاطيف:</strong> كيصاوب ليك عناوين كيخليو بنادم يكليكي، وكتبة قصيرة ديرها فوق الـ thumbnail (التصويرة المصغرة).</li>
-                        <li><strong>زر التحليل (Analyze):</strong> كليكي على أيقونة المبيان باش الذكاء الاصطناعي يعطي تنقيط للعناوين ديالك على 100 على حساب شحال ديال الكليكات غيجيبو.</li>
-                        <li><strong>الوصف والكلمات المفتاحية:</strong> كينقل الفورما ديال الوصف ديال المنافسين وكيجبد ليك كلمات مفتاحية (Tags) ناضيين.</li>
-                        <li><strong>أوامر الصور المصغرة:</strong> تقدر تلوح تصاور مصغرة ديال المنافسين! الذكاء الاصطناعي غياخد التخطيط ديالهم (Layout) وغيبدل المواضيع باش يجيو مع الفيديو ديالك!</li>
+                <div class="lang-ma space-y-6" dir="rtl">
+                    <p>خوارزمية يوتيوب كتبغي تغليف مثالي. هاد الواجهة كتقاد ليك الـ SEO بذكاء.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>استنساخ المنافسين <i data-lucide="dna" class="inline w-3 h-3 text-purple-400"></i>:</strong> كليكي على أيقونة الـ DNA فالعناوين ولا الوصف. حط ديال شي منافس ناجح، والـ AI غينقل التخطيط السيكولوجي ديالو ولكن بالمعلومات د الفيديو ديالك فقط.</li>
+                        <li><strong>التحليل الاستراتيجي <i data-lucide="bar-chart" class="inline w-3 h-3 text-indigo-400"></i>:</strong> كليكي على المبيان باش الـ AI ينقط العناوين ديالك على 100 ويقول ليك شكون فيهم لي غيجيب كليكات كتر.</li>
+                        <li><strong>عكس الصور المصغرة:</strong> لوح تصاور مصغرة ناجحة فـ اليسر. الـ AI غياخد الهيكل ديالها (Skeleton) ويكتب ليك أوامر باش تصاوب بحالها ولكن بالمواضيع د الفيديو ديالك.</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[250px] mt-4 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ حط تصويرة ديال واجهة الـ SEO هنا ]
+                    </div>
                 </div>
 
                 <!-- AR -->
-                <div class="lang-ar" dir="rtl">
-                    <p>لا تقم بالنشر بدون SEO جيد! تقوم هذه الواجهة بتحليل السيناريو الخاص بك لإنشاء حزمة يوتيوب سريعة الانتشار.</p>
-                    <ul class="list-disc space-y-3 mt-4">
-                        <li><strong>العناوين والخطاطيف:</strong> ينشئ عناوين قابلة للنقر بشكل كبير ونصاً قصيراً يمكنك وضعه على الصور المصغرة.</li>
-                        <li><strong>زر التحليل (Analyze):</strong> انقر على أيقونة المخطط ليقوم الذكاء الاصطناعي بتقييم عناوينك من 100 بناءً على سيكولوجية نسبة النقر إلى الظهور (CTR).</li>
-                        <li><strong>الوصف والعلامات (Tags):</strong> يستنسخ تنسيقات وصف المنافسين وينشئ علامات خلفية مثالية.</li>
-                        <li><strong>مطالبات الصور المصغرة:</strong> ارفع الصور المصغرة للمنافسين! سيسرق الذكاء الاصطناعي "تخطيطهم" ولكنه سيبدل العناصر لتتناسب مع الفيديو الخاص بك!</li>
+                <div class="lang-ar space-y-6" dir="rtl">
+                    <p>تتطلب خوارزمية يوتيوب تغليفًا مثاليًا. تقوم هذه الواجهة بأتمتة سيكولوجية الـ SEO.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>استنساخ المنافسين <i data-lucide="dna" class="inline w-3 h-3 text-purple-400"></i>:</strong> انقر على أيقونة الـ DNA. الصق نص منافس ناجح، وسيقوم الذكاء الاصطناعي بنسخ تخطيطه النفسي وإعادة كتابته بمعلومات فيديوك فقط.</li>
+                        <li><strong>التحليل الاستراتيجي <i data-lucide="bar-chart" class="inline w-3 h-3 text-indigo-400"></i>:</strong> انقر على المخطط ليقوم الذكاء الاصطناعي بتقييم عناوينك من 100 واختيار الأفضل لجلب النقرات (CTR).</li>
+                        <li><strong>الهندسة العكسية للصور المصغرة:</strong> ارفع صور مصغرة ناجحة لمنافسين. سيستخرج الذكاء الاصطناعي هيكلها وتكوينها، وينشئ أوامر لتوليد صور مشابهة تناسب موضوعك!</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[250px] mt-4 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ ضع صورة لواجهة الـ SEO هنا ]
+                    </div>
                 </div>
 
                 <!-- FR -->
-                <div class="lang-fr">
-                    <p>Ne publiez pas sans un bon SEO ! Cette vue analyse votre script pour générer un packaging YouTube viral.</p>
-                    <ul class="list-disc pl-6 space-y-3 mt-4">
-                        <li><strong>Titres & Accroches :</strong> Génère des titres très cliquables et de courts textes que vous pouvez mettre sur vos miniatures.</li>
-                        <li><strong>Bouton Analyser :</strong> Cliquez sur l'icône de graphique "Analyser" pour que l'IA note vos titres sur 100 en se basant sur la psychologie du CTR.</li>
-                        <li><strong>Description & Tags :</strong> Clone les formats de description des concurrents et génère des tags backend parfaits.</li>
-                        <li><strong>Prompts de Miniature :</strong> Importez les miniatures des concurrents ! L'IA volera leur "mise en page" mais échangera les sujets pour correspondre à votre vidéo !</li>
+                <div class="lang-fr space-y-6">
+                    <p>L'algorithme YouTube nécessite un packaging parfait. Cette vue automatise la psychologie du SEO.</p>
+                    <ul class="list-disc space-y-4">
+                        <li><strong>Clonage de Concurrents <i data-lucide="dna" class="inline w-3 h-3 text-purple-400"></i> :</strong> Cliquez sur l'icône ADN. Collez le texte d'un concurrent viral, et l'IA copiera sa structure psychologique avec les faits de votre vidéo.</li>
+                        <li><strong>Analyseur Stratégique <i data-lucide="bar-chart" class="inline w-3 h-3 text-indigo-400"></i> :</strong> L'IA notera vos titres sur 100 et choisira le meilleur pour maximiser le taux de clic (CTR).</li>
+                        <li><strong>Rétro-ingénierie de Miniatures :</strong> Importez des miniatures concurrentes réussies. L'IA extraira leur structure et générera des prompts pour créer des images similaires adaptées à votre sujet !</li>
                     </ul>
+                    <div class="screenshot-placeholder w-full h-[250px] mt-4 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
+                        [ Coller la capture d'écran du packaging SEO ici ]
+                    </div>
                 </div>
 
-                <div class="screenshot-placeholder w-full h-64 mt-6 rounded-lg flex items-center justify-center text-slate-500 font-mono text-sm">
-                    [ Paste a screenshot of the SEO Titles and Analyzer here ]
+            </div>
+        </section>
+
+        <!-- PROJECT MANAGEMENT -->
+        <section class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-2xl relative">
+            <div class="bg-slate-800 border-b border-slate-700 px-8 py-6 flex items-center gap-4 relative z-10">
+                <div class="p-3 bg-amber-900/30 text-amber-400 rounded-lg shadow-inner"><i data-lucide="folder-open" class="w-6 h-6"></i></div>
+                <div>
+                    <h3 class="text-2xl font-bold text-white lang-en">Cloud Storage & Workspaces</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ma" dir="rtl">المشاريع والتخزين</h3>
+                    <h3 class="text-2xl font-bold text-white lang-ar" dir="rtl">إدارة المشاريع والتخزين السحابي</h3>
+                    <h3 class="text-2xl font-bold text-white lang-fr">Projets et Stockage</h3>
+                </div>
+            </div>
+            
+            <div class="p-8 text-slate-300 leading-relaxed text-sm md:text-base relative z-10">
+                <!-- EN -->
+                <div class="lang-en space-y-4">
+                    <p>Click the <strong>Projects</strong> button at the top to save your workspace. Script Forge <strong class="text-emerald-400">auto-saves as you type!</strong> A green dot <span class="w-2 h-2 inline-block rounded-full bg-emerald-500 ml-1"></span> on the folder icon means everything is safely stored in your browser's IndexedDB (or Firebase if enabled).</p>
+                    <p>To back up your data, click the <span class="badge badge-blue"><i data-lucide="download" class="w-3 h-3"></i> Export All</span> button in the Projects Manager. This downloads a highly compressed JSON file containing your entire workspace, history, and generated assets, which you can import back into any other browser.</p>
+                </div>
+
+                <!-- MA -->
+                <div class="lang-ma space-y-4" dir="rtl">
+                    <p>كليكي على زر <strong>Projects</strong> الفوق باش تسجل الخدمة ديالك. Script Forge كيسجل أوتوماتيك ملي كتكون كتكتب! نقطة خضرا <span class="w-2 h-2 inline-block rounded-full bg-emerald-500 mr-1"></span> كتعني راه كلشي مسجل بأمان.</p>
+                    <p>باش دير نسخة احتياطية للخدمة، كليكي على <span class="badge badge-blue"><i data-lucide="download" class="w-3 h-3"></i> Export All</span> باش تتيليشارجي ملف JSON فيه كاع الخدمة ديالك تقدر تلوحو فمتصفح أخر.</p>
+                </div>
+
+                <!-- AR -->
+                <div class="lang-ar space-y-4" dir="rtl">
+                    <p>انقر على زر <strong>Projects</strong> لحفظ مساحة عملك. يقوم Script Forge بالحفظ التلقائي أثناء الكتابة! نقطة خضراء <span class="w-2 h-2 inline-block rounded-full bg-emerald-500 mr-1"></span> تعني أن كل شيء محفوظ بأمان.</p>
+                    <p>لعمل نسخة احتياطية، انقر على <span class="badge badge-blue"><i data-lucide="download" class="w-3 h-3"></i> Export All</span> لتنزيل ملف JSON مضغوط يحتوي على عملك بالكامل لرفعه في أي متصفح آخر.</p>
+                </div>
+
+                <!-- FR -->
+                <div class="lang-fr space-y-4">
+                    <p>Cliquez sur le bouton <strong>Projects</strong> pour sauvegarder votre espace. Script Forge sauvegarde automatiquement pendant que vous tapez ! Un point vert <span class="w-2 h-2 inline-block rounded-full bg-emerald-500 ml-1"></span> signifie que tout est sécurisé.</p>
+                    <p>Pour sauvegarder vos données, cliquez sur <span class="badge badge-blue"><i data-lucide="download" class="w-3 h-3"></i> Export All</span> pour télécharger un fichier JSON contenant tout votre travail, importable sur n'importe quel autre navigateur.</p>
                 </div>
             </div>
         </section>
         
         <!-- FOOTER -->
-        <footer class="text-center text-slate-500 text-sm py-8 border-t border-slate-700">
-            <p class="lang-en">Built with ❤️ for YouTube Automators</p>
-            <p class="lang-ma" dir="rtl">مقاد بـ ❤️ للناس ديال YouTube Automation</p>
-            <p class="lang-ar" dir="rtl">صُنع بـ ❤️ لصناع المحتوى المؤتمت على يوتيوب</p>
-            <p class="lang-fr">Conçu avec ❤️ pour les Automatisateurs YouTube</p>
+        <footer class="text-center text-slate-500 text-sm pt-8 pb-16 border-t border-slate-700 font-medium">
+            <p class="lang-en flex items-center justify-center gap-2">Built with <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i> for YouTube Automators</p>
+            <p class="lang-ma flex items-center justify-center gap-2" dir="rtl">مقاد بـ <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i> للناس ديال YouTube Automation</p>
+            <p class="lang-ar flex items-center justify-center gap-2" dir="rtl">صُنع بـ <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i> لصناع المحتوى المؤتمت على يوتيوب</p>
+            <p class="lang-fr flex items-center justify-center gap-2">Conçu avec <i data-lucide="heart" class="w-4 h-4 text-red-500 fill-red-500"></i> pour les Automatisateurs YouTube</p>
         </footer>
 
     </main>
@@ -353,13 +616,13 @@
                 
                 // Reset all buttons to inactive state
                 buttons.forEach(b => {
-                    b.classList.remove('bg-blue-600', 'text-white');
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow');
                     b.classList.add('text-slate-400', 'hover:text-white');
                 });
                 
                 // Set clicked button to active state
                 btn.classList.remove('text-slate-400', 'hover:text-white');
-                btn.classList.add('bg-blue-600', 'text-white');
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow');
             });
         });
     </script>
