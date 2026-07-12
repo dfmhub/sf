@@ -8070,11 +8070,11 @@ Output ONLY the strict rules block starting with '- THE FORMAT RULE:'. Do not ex
                     // Update the counters based on the final grouped cards rendered (Moved INSIDE the else block)
                     const imgCount = groups.filter(g => g.type.toLowerCase().includes('image')).length;
                     const vidCount = groups.filter(g => g.type.toLowerCase().includes('video')).length;
-                    if(ui.v2CountImg) ui.v2CountImg.innerText = imgCount;
-                    if(ui.v2CountVid) ui.v2CountVid.innerText = vidCount;
-                }
+                if(ui.v2CountImg) ui.v2CountImg.innerText = imgCount;
+                        if(ui.v2CountVid) ui.v2CountVid.innerText = vidCount;
 
-                // --- BUILD GLOBAL REFERENCE LOCKERS ---
+                    // --- BUILD GLOBAL REFERENCE LOCKERS ---
+                
                 const subjectCounts = {};
                 groups.forEach(group => {
                     if (group.keySubjects && Array.isArray(group.keySubjects)) {
@@ -8119,6 +8119,7 @@ Output ONLY the strict rules block starting with '- THE FORMAT RULE:'. Do not ex
                         globalContainer.innerHTML = '<div class="text-center p-4 text-slate-500 italic text-xs border border-dashed border-slate-700 rounded">No unique subjects detected in this script.</div>';
                     }
                 }
+                } // <-- Closes the else block so groups is in scope!
                 // --------------------------------------
 
                 // Populate Bulk Textareas dynamically via Live Sync
